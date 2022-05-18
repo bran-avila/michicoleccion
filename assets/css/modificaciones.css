@@ -1,0 +1,50 @@
+.imgT {
+    /*height: 200px !important;*/
+  }
+
+  .contModificacion{
+    width: 80%;
+
+  }
+  .tamanioC{
+      height: 1000px !important;
+  }
+
+ 
+
+
+  .taamC .thumb{
+    height:400px !important;
+    color: #0000;
+  }
+
+  .taamC .thumb img{
+    height:400px !important;
+    color: #0000;
+  }
+
+  .taamCG .thumb{
+    height:828.5px !important;
+    color: #0000;
+  }
+
+  .taamCG .thumb img{
+    height:828.5px !important;
+    color: #0000;
+  }
+
+  
+@media (max-width: 992px) {
+
+  .taamCG .thumb{
+    height:400px !important;
+    color: #0000;
+  }
+
+  .taamCG .thumb img{
+    height:400px !important;
+    color: #0000;
+  }
+
+
+}

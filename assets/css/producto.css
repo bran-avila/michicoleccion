@@ -1,0 +1,239 @@
+/* Aggressive reset to remove the initial spinner */
+input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance:none;
+    margin: 0;
+  }
+  input[type="number"]:hover::-webkit-inner-spin-button,
+  input[type="number"]:hover::-webkit-outer-spin-button {
+   -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance:none;
+    margin:0;
+  }
+        
+/* The component (also includes vertical) */
+
+.spinner {
+    margin: 0 0 5em 0;
+}
+
+.spinner:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.spinner__label {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.spinner__button {
+    cursor: pointer;
+    display: block;
+    font-size: 1em;
+    font-weight: 700;
+    padding: 1.1em 1em 1.15em;
+    text-align: center;
+    text-decoration: none;
+    background-color: #fdc84b;
+}
+
+.spinner__button--left {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.spinner__button--right {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.spinner__button--top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.spinner__button--bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.spinner--vertical .spinner__button {
+    padding:2em 1em;
+    width:100%;
+}
+
+.spinner__input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: none;
+    border: none;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    border-radius: none;
+    box-sizing: border-box;
+    display: block;
+    font-size: 1em;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.spinner--horizontal .spinner__input {
+    padding: 1em 1em 1.05em 1em;
+     @media all and (min-width:40em) {
+        padding: 1.1em 1em 1.05em 1em;
+    }
+}
+
+.spinner--vertical .spinner__input {
+    padding:1.5em 1em 1.5em 1em;
+    width:100%;
+}
+
+.spinner--horizontal .spinner__button {
+    float: left;
+    width: 25%;
+}
+
+.spinner--horizontal .spinner__input {
+    float: left;
+    width: 50%;
+}
+
+.contendedorProducto{
+    margin-top:120px;
+}
+
+.contenedorDetalleProducto{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedorDetalleProducto div{
+    width: 40%;
+}
+
+#number-spinner-horizontal{
+    width:50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.centerContenido{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+/* From uiverse.io */
+.btncarrito {
+    --glow-color: #fdc84b;
+    --glow-spread-color: #f5dfad;
+    --enhanced-glow-color: rgb(255, 255, 255);
+    --btn-color: #FFFF;
+    border: .25em solid var(--glow-color);
+    padding: 1em 3em;
+    color: var(--glow-color);
+    font-size: 15px;
+    font-weight: bold;
+    background-color: var(--btn-color);
+    border-radius: 1em;
+    outline: none;
+    box-shadow: 0 0 1em .25em var(--glow-color),
+    0 0 4em 1em var(--glow-spread-color),
+           inset 0 0 .75em .25em var(--glow-color);
+           text-shadow: 0 0 .5em var(--glow-color);
+           position: relative;
+           transition: all 0.3s;
+        }
+        
+        .btncarrito::after {
+            pointer-events: none;
+            content: "";
+            position: absolute;
+            top: 120%;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: var(--glow-spread-color);
+            filter: blur(2em);
+            opacity: .7;
+            transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
+        }
+        
+        .btncarrito:hover {
+            color: var(--btn-color);
+            background-color: var(--glow-color);
+            box-shadow: 0 0 1em .25em var(--glow-color),
+            0 0 4em 2em var(--glow-spread-color),
+            inset 0 0 .75em .25em var(--glow-color);
+        }
+   
+        .btncarrito:active {
+            box-shadow: 0 0 0.6em .25em var(--glow-color),
+            0 0 2.5em 2em var(--glow-spread-color),
+            inset 0 0 .5em .25em var(--glow-color);
+            border: .25em solid var(--glow-color);
+        }
+        
+        
+        
+        .swiper {
+            width: 70%;
+            height: 70%;
+            
+        }
+        
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+        }
+        .centerContenido1{
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        @media(max-width:800px) {
+            .contenedorDetalleProducto div{
+                width:60%;
+            }
+            .contenedorDetalleProducto div:first-of-type{
+                width:100%;
+                margin-top: 20px;
+            }
+            .contenedorDetalleProducto{
+                flex-direction: column-reverse;
+                flex-wrap: wrap;
+            }
+            .swiper {
+                width: 300px;
+                height: 300px;
+                
+            }
+          }
+
+          
+
+          .inputD{
+              display: none;
+          }
