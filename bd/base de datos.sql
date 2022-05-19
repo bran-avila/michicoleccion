@@ -159,9 +159,8 @@ create table pedido(
     iddireccion int,
     idmetodoenvio int,
     idtipoPago int,
-    cantidad int,
     total decimal(10,2),
-    fecha date,
+    fecha  DATETIME,
     estatusVenta varchar(200)
 );
 
@@ -184,6 +183,10 @@ create table metodoEnvio(
     precio decimal(10,2)
     
 );
+
+insert into metodoEnvio(tipoenvio,precio) values('economico',60);
+insert into metodoEnvio(tipoenvio,precio) values('normal',120);
+insert into metodoEnvio(tipoenvio,precio) values('express',180);
 
 create table tipopago(
     id int primary key AUTO_INCREMENT,

@@ -26,7 +26,7 @@ function numeroProductos($categoria){
 $numeroProductos = 0;
 $categoria='';
 
-$sql='select p.nombre as nombre,p.precio as precio, f.nombre as urlfoto from producto p,foto f, categoria c  where p.idcategoria =c.id and p.idfoto = f.id and c.categoria = :categoria order by p.nombre;';
+$sql='select p.nombre as nombre,p.precio as precio, f.nombre as urlfoto from producto p,foto f, categoria c  where p.idcategoria =c.id and p.idfoto = f.id and c.categoria = :categoria order by p.nombre and p.cantidad > 0;';
 
 if(isset($_GET["categoria"])){
     if(existeCategoria($_GET["categoria"])){
@@ -118,7 +118,7 @@ if(isset($_GET["categoria"])){
                     <div class="row">
 
                     <?php 
-                     $sql = "select p.id as id,p.nombre as nombre,p.precio as precio, f.nombre as urlfoto from producto p,foto f, categoria c  where p.idcategoria =c.id and p.idfoto = f.id and c.categoria = :categoria order by p.nombre;"; 
+                     $sql = "select p.id as id,p.nombre as nombre,p.precio as precio, f.nombre as urlfoto from producto p,foto f, categoria c  where p.idcategoria =c.id and p.idfoto = f.id and c.categoria = :categoria  and p.cantidad > 0 order by p.nombre;"; 
                      $query = connect() -> prepare($sql); 
                      $query->bindParam(':categoria',$_GET["categoria"]);
                      $query -> execute(); 

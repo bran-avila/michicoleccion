@@ -152,7 +152,7 @@ if(isset($_POST['id'])&&isset($_POST['cantidad'])){
     <div class="subtotal cf" id="subtotal">
         <ul>
                 <li class="totalRow final"><span class="label">Total</span><span id="total" class="value">$<?php echo $cantidadTotal?></span></li>
-        <li class="totalRow"><a href="#" class="btn continue">Finalizar pedido</a></li>
+        <li class="totalRow"><a href="checkout.php" class="btn continue">Finalizar pedido</a></li>
         </ul>
     </div>
     </div>
