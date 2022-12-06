@@ -19,6 +19,8 @@ $cantidadProductosSesion = 0;
     <link rel="stylesheet" href="assets/css/estilos.css">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/producto.css">
+    <link rel="stylesheet" href="assets/css/migaspan.css">
+    <link rel="stylesheet" href="assets/css/animaciones.css">
 </head>
 <body>
     <?php
@@ -43,11 +45,30 @@ $cantidadProductosSesion = 0;
         ?>
 
 
-        <div class="contenedorDetalleProducto" >
+        <div class="container-Breadcrumb ">
+            <div>
+                <a href="#">Home</a>
+                <img src="assets/images/flecha1.png" alt="">
+            </div>
+            <div>
+            <?php 
+            $categoriaMinuscula = strtolower($result -> categoria);
+            echo '<a href="colecciones.php?categoria='.$categoriaMinuscula.'">'.$categoriaMinuscula. '</a>';?>
+            <img src="assets/images/flecha1.png" alt="">
+            </div>
+            <div>
+            <?php 
+            $categoriaMinuscula = strtolower($result -> nombre);
+            echo '<a href="#">'.$categoriaMinuscula. '</a>';?>
+            </div>
 
-            <div class="centerContenido">
-                <p>Categoria:<?php echo $result -> marca?></p>
+        </div>
+        <div class="contenedorDetalleProducto " >
+
+            <div class="centerContenido swing-in-left-bck">
                 <p>Nombre:<?php echo $result -> nombre?></p>
+                <p>Categoria:<?php echo $result -> categoria?></p>
+                <p>Marca:<?php echo $result -> marca?></p>
                 <p>$<?php echo $result -> precio?></p>
                 <p>Estado:<?php echo $result -> estado?></p>
                 <form id="number-spinner-horizontal" class="t-neutral" action="carrito.php" method="POST">
@@ -62,7 +83,7 @@ $cantidadProductosSesion = 0;
                     <input type="text" class="inputD" name="urlfoto" <?php echo 'value="'. $result -> urlfoto.'"'?> >
                     <input type="text" class="inputD" name="nombre" <?php echo 'value="'. $result -> nombre.'"'?> >
                     <input type="text" class="inputD" name="precio" <?php echo 'value="'. $result -> precio.'"'?> >
-                    <input type="text" class="inputD" name="stock" <?php echo 'value="'. $result -> cantidad-$cantidadProductosSesion.'"'?> >
+                    <input type="text" class="inputD" name="stock" <?php echo 'value="'. ($result -> cantidad-$cantidadProductosSesion).'"'?> >
                    
                     <button type="submit" class="btncarrito">
                         Añadir al carrito
@@ -93,7 +114,7 @@ $cantidadProductosSesion = 0;
         ?>
           
                 <!-- Swiper -->
-                <div class="swiper mySwiper">
+                <div class="swiper mySwiper swing-in-right-bck" id="tamañoimg" >
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                     <img <?php echo 'src="galeria/'.$result -> urlfoto.'"'?> />

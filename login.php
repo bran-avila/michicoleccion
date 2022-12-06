@@ -1,12 +1,13 @@
 <?php
   session_start();
-
+  date_default_timezone_set('UTC');
+  date_default_timezone_set("America/Mexico_City");
   include_once 'php/conexion.php';
 
   if(isset($_SESSION['user'])){
       
     if(isset($_SESSION['rolAdmin']) && $_SESSION['rolAdmin'] == true){
-        header('Location: admin.php');
+        header('Location: admin.php#first');
       }else{
         header('Location: cuenta.php');
       }
@@ -36,7 +37,7 @@
         $_SESSION['id'] =  $id ;
 
         if(isset($_SESSION['rolAdmin']) && $_SESSION['rolAdmin'] == true){
-          header('Location: admin.php');
+          header('Location: admin.php#first');
         }else{
           header('Location: cuenta.php');
         }
@@ -73,14 +74,16 @@
 function registrarUsuario($correo,$nombre,$apellidos,$contrasenia){
 
   $md5pass = md5($contrasenia);
-
-  $sql="insert into usuarios(nombre,apellidos,correo,contrasenia) values(:nombre,:apellidos,:correo,:contrasenia)";
+  date_default_timezone_set('UTC');
+  date_default_timezone_set("America/Mexico_City");
+  $fechaRegistro = date('Y-m-d H:i:s');
+  $sql="insert into usuarios(nombre,apellidos,correo,contrasenia,fecha) values(:nombre,:apellidos,:correo,:contrasenia,:fecha)";
   $sql= connect()->prepare($sql);
   $sql->bindParam(':nombre',$nombre);
   $sql->bindParam(':apellidos',$apellidos);
   $sql->bindParam(':correo',$correo);
   $sql->bindParam(':contrasenia',$md5pass);
-
+  $sql->bindParam(':fecha',$fechaRegistro);
 
 
  if( $sql->execute()){
@@ -145,6 +148,7 @@ function permisoAdmin($id){
 <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/footer.css">
 <link rel="stylesheet" href="assets/css/estilosLogin.css">
+<link rel="stylesheet" href="assets/css/animaciones.css">
 </head>
 <body>
   <?php
@@ -152,8 +156,8 @@ function permisoAdmin($id){
     ?>
 
 
-<div class="bg">
-<div class="cardL" id="cardL">
+<div class="bg ">
+<div class="cardL slide-in-left" id="cardL">
 <div class="inner-box" id="card">
 
 <div class="card-front">
@@ -189,7 +193,7 @@ function permisoAdmin($id){
           <button type="submit" class="submit-btn"  name="btnregistrar">Registar</button>
           
    	</form>	
-   	<a  class="btnLogin" onclick="openLogin()">Tengo una cuenta</a>
+   	<a  class="btnLogin" onclick="openLogin()" id="">Tengo una cuenta</a>
    	
 </div>
         </div>

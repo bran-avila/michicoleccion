@@ -1,5 +1,6 @@
 <?php
-session_start();
+session_start();/*tenemos que iniciar session_start(); para poder tener acceso a las variables de session, las varaiables de session son variables de session
+            globales que se puede usar en todas las paginas php  de la aplicacion accediendo con LA VARIABLE $_SESSION["nombreVariable"]; */
 
 
 if(isset($_POST['id'])&&isset($_POST['cantidad'])){
@@ -58,6 +59,7 @@ if(isset($_POST['id'])&&isset($_POST['cantidad'])){
     <link rel="stylesheet" href="assets/css/estilos.css">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/carrito.css">
+    <link rel="stylesheet" href="assets/css/animaciones.css">
 </head>
 <body>
     <?php
@@ -66,8 +68,8 @@ if(isset($_POST['id'])&&isset($_POST['cantidad'])){
 
     <main class="contnedorCarrito">
 
-    <div class="wrap cf">
-  <h1 class="projTitle">Mi carrito de compra</h1>
+    <div class="wrap cf focus-in-expand-fwd">
+  <h1 class="projTitle focus-in-expand-fwd" >Mi carrito de compra</h1>
   <div class="heading cf">
     <h1>Productos</h1>
     <a href="index.php" class="continue">Continuar comprando</a>

@@ -26,12 +26,12 @@ function numeroProductos($categoria){
 $numeroProductos = 0;
 $categoria='';
 
-$sql='select p.nombre as nombre,p.precio as precio, f.nombre as urlfoto from producto p,foto f, categoria c  where p.idcategoria =c.id and p.idfoto = f.id and c.categoria = :categoria order by p.nombre and p.cantidad > 0;';
+$sql='select p.nombre as nombre,p.precio as precio, f.nombre as urlfoto from producto p,foto f, categoria c  where p.idcategoria =c.id and p.idfoto = f.id and c.categoria = :categoria and p.disponible = true and p.cantidad > 0 order by p.nombre  ;';
 
 if(isset($_GET["categoria"])){
-    if(existeCategoria($_GET["categoria"])){
+    if(existeCategoria($_GET["categoria"])){/*get es una variable global que cuando mandamos datos por get o post podemos acceder con el nombre que le dimos en el formuario o con js*/
         $str = $_GET["categoria"];
-        $str = strtoupper($str);
+        $str = strtoupper($str);/*strtoupper($str) sirve para poder en mayusculas la letras */
         $categoria= $str;
         $numeroProductos=numeroProductos($_GET["categoria"]);
     }else{
@@ -56,11 +56,12 @@ if(isset($_GET["categoria"])){
     <link rel="stylesheet" href="assets/css/estilos.css">
     <link rel="stylesheet" href="assets/css/estilosCatalogo.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/animaciones.css">
 
 </head>
 <body>
     <?php
-        include 'componentes/header.php'
+        include 'componentes/header.php'/*cuando usamos include funciona para poder un fragmento de codigo de un archivo php  */
     ?>
 
     <main class ="contenedorProductos">
@@ -73,13 +74,13 @@ if(isset($_GET["categoria"])){
             </div>
             <div>
             <?php 
-            $categoriaMinuscula = strtolower($categoria);
+            $categoriaMinuscula = strtolower($categoria);/*strtolower($categoria) esta funcion sirve para poder todo en mayusculas*/
             echo '<a href="colecciones.php?categoria='.$categoriaMinuscula.'">'.$categoriaMinuscula. '</a>';?>
             </div>
         </div>
 
         <div class="container-titulo Productos">
-                <h2 class="textTitulo">
+                <h2 class="textTitulo focus-in-expand-fwd">
                     <?php
                       echo  $categoria;
                     ?>
@@ -118,14 +119,14 @@ if(isset($_GET["categoria"])){
                     <div class="row">
 
                     <?php 
-                     $sql = "select p.id as id,p.nombre as nombre,p.precio as precio, f.nombre as urlfoto from producto p,foto f, categoria c  where p.idcategoria =c.id and p.idfoto = f.id and c.categoria = :categoria  and p.cantidad > 0 order by p.nombre;"; 
+                     $sql = "select p.id as id,p.nombre as nombre,p.precio as precio, f.nombre as urlfoto from producto p,foto f, categoria c  where p.idcategoria =c.id and p.idfoto = f.id and c.categoria = :categoria  and p.cantidad > 0 and p.disponible = true order by p.nombre;"; 
                      $query = connect() -> prepare($sql); 
                      $query->bindParam(':categoria',$_GET["categoria"]);
                      $query -> execute(); 
                      $results = $query -> fetchAll(PDO::FETCH_OBJ); 
                      if($query -> rowCount() > 0)   { 
                        foreach($results as $result) { 
-                        echo' <div class="el-wrapper">
+                        echo' <div class="el-wrapper slide-in-elliptic-bottom-fwd">
                                     <div class="box-up">
                                     <img class="img" src="galeria/'.$result -> urlfoto.'" alt="">
                                     <div class="img-info">
@@ -140,7 +141,7 @@ if(isset($_GET["categoria"])){
                                         <div class="h-bg-inner"></div>
                                     </div>
             
-                                    <a class="cart" href="producto.php?id='.$result -> id.'">
+                                    <a class="cart" href="producto.php?id='.$result -> id.'&nombre='.$result -> nombre.'">
                                         <span class="price">$'.$result -> precio.' </span>
                                         <span class="add-to-cart">
                                         <span class="txt">Comprar</span>

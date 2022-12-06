@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once 'php/conexion.php';
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +32,8 @@ session_start();
 
     <link rel="stylesheet" href="assets/css/estilos.css">
 
+    <link rel="stylesheet" href="assets/css/animaciones.css">
+
     </head>
 <body>
 
@@ -41,7 +44,7 @@ session_start();
 
     <div class="contenedorPrincipal">
             <div class="container-titulo">
-                <h2 class="textTitulo">Colecciones</h2>
+                <h2 class="textTitulo focus-in-expand-fwd ">Colecciones</h2>
             </div>
             
         </div>
@@ -52,14 +55,14 @@ session_start();
 <div class="main-banner" id="top">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6 ">
+                <div class="col-lg-6 bounce-in-left">
                     <div class="left-content taamCG">
                         <div class="thumb">
                             <div class="inner-content">
                                 <h4>DIGIMON</h4>
                                 <span>BANDAI</span>
                                 <div class="main-border-button">
-                                    <a href="#">Ver más</a>
+                                    <a href="colecciones.php?categoria=digimon">Ver más</a>
                                 </div>
                             </div>
                             <img src="assets/images/digimon.jpg" alt="">
@@ -69,7 +72,7 @@ session_start();
                 <div class="col-lg-6">
                     <div class="right-content">
                         <div class="row">
-                            <div class="col-lg-6 ">
+                            <div class="col-lg-6 bounce-in-right">
                                 <div class="right-first-image taamC" >
                                     <div class="thumb">
                                         <div class="inner-content fondoEfect">
@@ -80,7 +83,7 @@ session_start();
                                             <div class="inner">
                                                 <h4>Heroclix</h4>
                                                 <div class="main-border-button">
-                                                    <a href="#">Ver productos</a>
+                                                    <a href="colecciones.php?categoria=heroclix">Ver productos</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -88,7 +91,7 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 ">
+                            <div class="col-lg-6 bounce-in-right">
                                 <div class="right-first-image taamC">
                                     <div class="thumb">
                                         <div class="inner-content fondoEfect">
@@ -98,7 +101,7 @@ session_start();
                                             <div class="inner">
                                                 <h4>Video juegos</h4>
                                                 <div class="main-border-button">
-                                                    <a href="#">Ver productos</a>
+                                                    <a href="colecciones.php?categoria=video+juegos">Ver productos</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +110,7 @@ session_start();
                                 </div>
                             </div>
                            
-                            <div class="col-lg-12 taamC">
+                            <div class="col-lg-12 taamC bounce-in-bottom">
 
                                 <div class="right-first-image tam">
                                     <div class="thumb">
@@ -118,7 +121,7 @@ session_start();
                                             <div class="inner">
                                                 <h4>Comics y revistas</h4>
                                                 <div class="main-border-button">
-                                                    <a href="#">Ver productos</a>
+                                                    <a href="colecciones.php?categoria=comics+y+libros">Ver productos</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,61 +145,29 @@ session_start();
 
     <div class="slider-content">
 
+    <?php
+                $sql = "SELECT  f.nombre as foto,p.nombre as nombre,p.cantidad as stock FROM producto p, foto f where p.idfoto=f.id limit 5;"; 
+                $query = connect() -> prepare($sql);
+                $query -> execute();
+                $productos=0; 
+                $results = $query -> fetchAll(PDO::FETCH_OBJ); 
+                if($query -> rowCount() > 0)   { 
+                  foreach($results as $result) { 
+                  $productos= $result;
+                ?>
         <div class="slider-single">
-            <img class="slider-single-image" src="https://picsum.photos/id/973/200/300" alt="1" />
-            <h1 class="slider-single-title">Through the Mountains</h1>
+            <img class="slider-single-image" src="galeria/<?php echo $productos -> foto;?>" alt="1" />
+            <h1 class="slider-single-title"><?php echo  $productos->nombre;?></h1>
             <a class="slider-single-likes" href="javascript:void(0);">
                 <i class="fa fa-heart"></i>
-                <p>1,247</p>
+                <p><?php echo  $productos->stock;?></p>
             </a>
         </div>
 
-        <div class="slider-single">
-            <img class="slider-single-image" src="https://picsum.photos/id/974/200/300" alt="2" />
-            <h1 class="slider-single-title">Through the Mountains</h1>
-            <a class="slider-single-likes" href="javascript:void(0);">
-                <i class="fa fa-heart"></i>
-                <p>1,247</p>
-            </a>
-        </div>
-
-        <div class="slider-single">
-            <img class="slider-single-image" src="https://picsum.photos/id/975/200/300" alt="3" />
-            <h1 class="slider-single-title">Through the Mountains</h1>
-            <a class="slider-single-likes" href="javascript:void(0);">
-                <i class="fa fa-heart"></i>
-                <p>1,247</p>
-            </a>
-        </div>
+        <?php  }} 
+                     ?>
 
 
-        <div class="slider-single">
-            <img class="slider-single-image" src="https://picsum.photos/id/976/200/300" alt="4" />
-            <h1 class="slider-single-title">Through the Mountains</h1>
-            <a class="slider-single-likes" href="javascript:void(0);">
-                <i class="fa fa-heart"></i>
-                <p>1,247</p>
-            </a>
-        </div>
-
-
-        <div class="slider-single">
-            <img class="slider-single-image" src="https://picsum.photos/id/977/200/300" alt="5" />
-            <h1 class="slider-single-title">Through the Mountains</h1>
-            <a class="slider-single-likes" href="javascript:void(0);">
-                <i class="fa fa-heart"></i>
-                <p>1,247</p>
-            </a>
-        </div>
-
-        <div class="slider-single">
-            <img class="slider-single-image" src="https://picsum.photos/id/978/200/300" alt="6" />
-            <h1 class="slider-single-title">Through the Mountains</h1>
-            <a class="slider-single-likes" href="javascript:void(0);">
-                <i class="fa fa-heart"></i>
-                <p>1,247</p>
-            </a>
-        </div>
     </div>
 </div>
 </div>

@@ -412,3 +412,12 @@
   .h3{
     text-align: center;
   }
+  ul{
+    list-style: none;
+  }
+    .contnedorCarrito{
+      margin-top: 80px;
+      margin-bottom: 200px;
+    }
+
+  

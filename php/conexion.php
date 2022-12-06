@@ -2,7 +2,7 @@
 
         function connect(){
             $host     = 'localhost';
-            $db       = 'pruebaecommerce';
+            $db       = 'ecommercemichicoleccion';
             $user     = 'root';
             $password = "";
             $charset  = 'utf8mb4';

@@ -54,7 +54,7 @@
                 
             </ul>
             
-            <a href="#">logo</a>
+            <a href="index.php"><img id="logo" src="assets/images/logo2.png" alt=""></a>
 
             <nav class="nav-iconos">
                 <ul>
@@ -68,7 +68,7 @@
                            ?>
                         </a>
                     </li>
-                    <li><a href="#"><img src="assets/images/buscar.png" alt="icono"></a></li>
+                    <li><a href="buscador.php"><img src="assets/images/buscar.png" alt="icono"></a></li>
                     <li><a href="login.php"><img src="assets/images/usuario.png" alt="icono"></a></li>
                 </ul> 
             </nav>

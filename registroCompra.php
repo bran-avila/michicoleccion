@@ -1,7 +1,8 @@
 <?php
     session_start();
     include_once 'php/conexion.php';
-
+    date_default_timezone_set('UTC');
+    date_default_timezone_set("America/Mexico_City");
     $correo = $_POST['correo'];
     $pais = $_POST['pais'];
     $nombre = $_POST['nombre'];
@@ -64,7 +65,7 @@ $sql="insert into direccion(nombre,apellidos,pais,callenum,colonia,cp,ciudad,est
 
   */
 
-  $conexion =connect();
+$conexion =connect();
  $errorInserttipoPago=false;
  $sql="insert into tipopago(idtransancion,cantidad,fecha,estatus) 
                      values(:idtransancion,:cantidad,:fecha,:estatus)";
@@ -83,8 +84,8 @@ $sql="insert into direccion(nombre,apellidos,pais,callenum,colonia,cp,ciudad,est
   $conexion =connect();
   $errorInsertpedido=false;
   $fechapedido = date('Y-m-d H:i:s');
- $sql="insert into pedido(iddireccion,idmetodoenvio,idtipoPago,total,fecha,estatusVenta) 
-                     values(:iddireccion,:idmetodoenvio,:idtipopago,:total,:fecha,:estatusVenta)";
+ $sql="insert into pedido(iddireccion,idmetodoenvio,idtipoPago,total,fecha,estatusVenta,correo) 
+                     values(:iddireccion,:idmetodoenvio,:idtipopago,:total,:fecha,:estatusVenta,:correo)";
   $sql= $conexion->prepare($sql);
    $sql->bindValue(':iddireccion',$idUltimoInsert["iddireccion"]);//nota si usamos un arreglo para pasar informacion en una setencia preparada tenemos que usar bindValue para que funcione el dato
    $sql->bindParam(':idmetodoenvio',$envio);
@@ -92,6 +93,7 @@ $sql="insert into direccion(nombre,apellidos,pais,callenum,colonia,cp,ciudad,est
    $sql->bindValue(':total',$total);
    $sql->bindValue(':fecha',$fechapedido);
    $sql->bindValue(':estatusVenta','Preparando para envio');
+   $sql->bindValue(':correo',$correo);
   if( $sql->execute()){
      $errorInsertpedido= true;
      $idUltimoInsert["idpedido"] = $conexion->lastInsertId();//obtenemos el ultimo id del insert que se hizo en la base de datos;
@@ -99,6 +101,25 @@ $sql="insert into direccion(nombre,apellidos,pais,callenum,colonia,cp,ciudad,est
      $errorInsertpedido=  false;
      $idUltimoInsert["idpedido"] = 0;
   }
+
+
+/*insert de id usuario logeado y pedido */
+
+
+
+$conexion =connect();
+$errorInsertusuariopedido=false;
+$sql="insert into usuario_pedido(idpedido,idusuarios) 
+                     values(:idpedido,:idusuario)";
+   $sql= $conexion->prepare($sql);
+   $sql->bindValue(':idpedido', $idUltimoInsert["idpedido"]);
+   $sql->bindValue(':idusuario',$_SESSION['id']);
+  if( $sql->execute()){
+     $errorInsertusuariopedido= true;
+  }else{
+     $errorInsertusuariopedido=  false;
+  }
+
 
   $errorInsertdetalleproductos=false;
   
@@ -132,6 +153,7 @@ $sql="insert into direccion(nombre,apellidos,pais,callenum,colonia,cp,ciudad,est
 }
   
 unset($_SESSION['carrito']);
+$_SESSION['idpedido'] = $idUltimoInsert["idpedido"];
 
     $response = array("correo" => $correo, "pais" => $pais,"nombre"=> $nombre,
                         "calle" => $calle, "colonia" => $colonia,"cp"=> $cp,

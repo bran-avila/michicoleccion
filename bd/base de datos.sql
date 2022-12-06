@@ -1,5 +1,5 @@
-CREATE database ejemplologin;
-use ejemplologin;
+CREATE database ecommercemichicoleccion;
+use ecommercemichicoleccion;
 
 /*tablas para la login*/
 create table usuarios(
@@ -9,6 +9,7 @@ create table usuarios(
     apellidos varchar (200),
     correo varchar(200)
 );
+ALTER TABLE `usuarios` ADD `fecha` DATETIME NULL DEFAULT NULL AFTER `correo`;
 
 create table roles(
     id int primary key AUTO_INCREMENT,
@@ -92,7 +93,8 @@ create table producto(
     descripcion text,
     anio int,
     cantidad int,
-    precio decimal(10,2)
+    precio decimal(10,2),
+    disponible BIT
 );
 
 
@@ -108,20 +110,20 @@ references marca(id) on delete cascade on update cascade;
 alter table producto add constraint FK_idfoto foreign key (idfoto)   
 references foto(id) on delete cascade on update cascade;
 
-insert into producto(idcategoria,idestadoproducto,idmarca,idfoto,nombre,descripcion,anio,cantidad,precio) 
-values(2,2,5,1,"monster hunter 4 3ds","videojuego de rpg y aventura de la cosola 3ds, una experencia unica",2014,5,1000);
+insert into producto(idcategoria,idestadoproducto,idmarca,idfoto,nombre,descripcion,anio,cantidad,precio,disponible) 
+values(2,2,5,1,"monster hunter 4 3ds","videojuego de rpg y aventura de la cosola 3ds, una experencia unica",2014,5,1000,1);
 
-insert into producto(idcategoria,idestadoproducto,idmarca,idfoto,nombre,descripcion,anio,cantidad,precio) 
-values(2,1,5,2,"Monster Hunter World: Iceborne Master Edition Capcom Ps4","videojuego de rpg y aventura de la cosola ps4, una experencia unica",2019,3,650);
+insert into producto(idcategoria,idestadoproducto,idmarca,idfoto,nombre,descripcion,anio,cantidad,precio,disponible) 
+values(2,1,5,2,"Monster Hunter World: Iceborne Master Edition Capcom Ps4","videojuego de rpg y aventura de la cosola ps4, una experencia unica",2019,3,650,1);
 
-insert into producto(idcategoria,idestadoproducto,idmarca,idfoto,nombre,descripcion,anio,cantidad,precio) 
-values(2,2,7,3,"Sonic The Hedgehog 3 Sega Genesis","videojuego de aventura de la cosola genesis, una experencia unica",1994,1,1200);
+insert into producto(idcategoria,idestadoproducto,idmarca,idfoto,nombre,descripcion,anio,cantidad,precio,disponible) 
+values(2,2,7,3,"Sonic The Hedgehog 3 Sega Genesis","videojuego de aventura de la cosola genesis, una experencia unica",1994,1,1200,1);
 
-insert into producto(idcategoria,idestadoproducto,idmarca,idfoto,nombre,descripcion,anio,cantidad,precio) 
-values(2,2,5,4,"Monster Hunter Freedom Unite Para Psp","videojuego de rpg y aventura de la cosola PSP, una experencia unica",2008,2,399);
+insert into producto(idcategoria,idestadoproducto,idmarca,idfoto,nombre,descripcion,anio,cantidad,precio,disponible) 
+values(2,2,5,4,"Monster Hunter Freedom Unite Para Psp","videojuego de rpg y aventura de la cosola PSP, una experencia unica",2008,2,399,1);
 
-insert into producto(idcategoria,idestadoproducto,idmarca,idfoto,nombre,descripcion,anio,cantidad,precio) 
-values(2,4,6,5,"Soul Sacrifice Ps Vita","videojuego de rpg y aventura de la cosola PS VITA, una experencia unica",2013,3,487);
+insert into producto(idcategoria,idestadoproducto,idmarca,idfoto,nombre,descripcion,anio,cantidad,precio,disponible) 
+values(2,4,6,5,"Soul Sacrifice Ps Vita","videojuego de rpg y aventura de la cosola PS VITA, una experencia unica",2013,3,487,1);
 
 /*pediente*/
 
@@ -149,8 +151,8 @@ insert into galeria(idproducto,idfoto) value(5,5);
 
 /*consutas*/
 
-select * from producto as p,foto as f,
-select p.nombre as nombre,p.precio as precio, f.nombre as urlfoto from producto p,foto f, categoria c  where p.idcategoria =c.id and p.idfoto = f.id and c.categoria = 'video juegos' order by p.nombre;
+/*select * from producto as p,foto as f,
+select p.nombre as nombre,p.precio as precio, f.nombre as urlfoto from producto p,foto f, categoria c  where p.idcategoria =c.id and p.idfoto = f.id and c.categoria = 'video juegos' order by p.nombre;*/
 
 /*tablas de detalle pedidos*/
 
@@ -161,7 +163,8 @@ create table pedido(
     idtipoPago int,
     total decimal(10,2),
     fecha  DATETIME,
-    estatusVenta varchar(200)
+    estatusVenta varchar(200),
+    correo varchar(200)
 );
 
 create table direccion(
@@ -234,3 +237,10 @@ references pedido(id) on delete cascade on update cascade;
 
 alter table detalle_producto add constraint FK_productodetalle foreign key (idproducto)   
 references producto(id) on delete cascade on update cascade;
+
+/*select pe.correo as correo,dic.nombre as  nombre,dic.apellidos as  apellidos,dic.pais as  pais,dic.callenum as calle,dic.colonia as  colonia,dic.cp as  cp,dic.ciudad as  ciudad,dic.estado as  estado,dic.telefono as  telefono,pe.estatusVenta as estatus,pe.total as cantidad,me.tipoenvio as envio
+ from pedido pe,direccion dic,metodoenvio me,tipopago tp 
+ where pe.iddireccion = dic.id and pe.idmetodoenvio = me.id and pe.idtipoPago = tp.id and pe.id = 20;
+
+ select f.nombre as foto,dp.nombre as nombre,dp.cantidad as cantidad,dp.precio as precio,dp.subtotal as total  from detalle_producto dp, producto p, foto f where dp.idproducto = p.id and p.idfoto = f.id and dp.idpedido = 16; 
+select p.id as id,p.fecha as fecha, p.total as total,p.estatusVenta as etatus from usuario_pedido up, pedido p where up.idpedido = p.id and up.idusuarios = 7;*/

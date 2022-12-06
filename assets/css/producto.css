@@ -216,6 +216,7 @@ input[type="number"] {
         @media(max-width:800px) {
             .contenedorDetalleProducto div{
                 width:60%;
+                height: auto;
             }
             .contenedorDetalleProducto div:first-of-type{
                 width:100%;
@@ -237,3 +238,13 @@ input[type="number"] {
           .inputD{
               display: none;
           }
+
+           @media(max-width:750px) {
+            .container-Breadcrumb{
+                margin:0 !important;
+            }
+        }
+
+        #tamañoimg{
+            width:30% !important;
+        }

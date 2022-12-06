@@ -36,7 +36,7 @@ if(isset($_POST["enviar"])){
 <html lang="en" dir="ltr">
    <head>
       <meta charset="utf-8">
-      <title>Multi Step Form | CodingNepal</title>
+      <title>Checkout</title>
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
@@ -45,6 +45,7 @@ if(isset($_POST["enviar"])){
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/carrito.css">
     <link rel="stylesheet" href="assets/css/stylecheckout.css">
+    <link rel="stylesheet" href="assets/css/animaciones.css">
    </head>
    <body>
    <script src="https://www.paypal.com/sdk/js?client-id=AYmkW-I_J63Cz7gRXzAspoEJzI_Tl0otpRCK2fTPa2JaFOD-Y9G9s5vhTEwmFOPqqxDvytuROEiCJLNu&currency=MXN"></script>
@@ -53,7 +54,7 @@ if(isset($_POST["enviar"])){
     ?>   
    <div class="containerCheckout">
 
-         <div class="containerc">
+         <div class="containerc bounce-in-left">
             <header>Checkout</header>
             <div class="progress-barc">
                <div class="stepc">
@@ -191,7 +192,7 @@ if(isset($_POST["enviar"])){
                      </div>
                      <div class="fieldc">
                         <div class="labelc">
-                           Economico (1 a 3 dias) $180
+                           Express (1 a 3 dias) $180
                         </div>
                         <input type="radio" name="envio" value="3" data-cantidad="180" <?php if(isset($_POST["enviar"]) && $_POST["envio"] == 3) {echo 'checked="checked"';} ?>>
                      </div>
@@ -214,7 +215,7 @@ if(isset($_POST["enviar"])){
          </div>
 
 
-         <div class="container tamañolist">
+         <div class="container tamañolist bounce-in-right">
          <ul class="list-group">
          <?php
          
@@ -337,7 +338,7 @@ if(isset($_POST["enviar"])){
         onApprove: (data, actions) => {
           return actions.order.capture().then(function(orderData) {//promesa de si el pago de paypal fue un exitoso
 
-            const data = new FormData(document.getElementById('fromCheckout'));
+            const data = new FormData(document.getElementById('fromCheckout'));// form data es un metodo de js que crea un objecto con datos del formulario para mandarlo al servidor php y que obtenga los datos como una peticion normal
             let idTransacion = orderData.purchase_units[0].payments.captures[0].id;
             let fecha = orderData.purchase_units[0].payments.captures[0].create_time;
             let status = orderData.purchase_units[0].payments.captures[0].status;
@@ -389,5 +390,6 @@ if(isset($_POST["enviar"])){
       }
 
     ?>
+     <script src="assets/js/eventosvanilla.js"></script>
    </body>
 </html>
